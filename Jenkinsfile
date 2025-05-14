@@ -20,7 +20,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/devops-methodology/Blue-Green-Deployment.git'
+                git branch: 'main', url: 'https://github.com/EstebanGZam/Blue-Green-Deployment.git'
             }
         }
         
