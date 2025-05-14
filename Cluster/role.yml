@@ -4,36 +4,28 @@ metadata:
   name: app-role
   namespace: webapps
 rules:
-  - apiGroups:
-      - ""
-      - apps
-      - autoscaling
-      - batch
-      - extensions
-      - policy
-      - rbac.authorization.k8s.io
-resources:
-  - pods
-  - secrets
-  - componentstatuses
-  - configmaps
-  - daemonsets
-  - deployments
-  - events
-  - endpoints
-  - horizontalpodautoscalers
-  - ingress
-  - jobs
-  - limitranges
-  - namespaces
-  - nodes
-  - pods
-  - persistentvolumes
-  - persistentvolumeclaims
-  - resourcequotas
-  - replicasets
-  - replicationcontrollers
-  - serviceaccounts
-  - services
+  - apiGroups: [""] # Grupo vacío para recursos del core (pods, services, etc.)
+    resources:
+      - pods
+      - secrets
+      - configmaps
+      - services
+      - persistentvolumeclaims
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 
-verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["apps"]
+    resources:
+      - deployments
+      - daemonsets
+      - replicasets
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+  - apiGroups: ["batch"]
+    resources:
+      - jobs
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+  - apiGroups: ["networking.k8s.io"] # Para ingress
+    resources:
+      - ingress
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
